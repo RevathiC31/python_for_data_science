@@ -7,12 +7,10 @@
     of Question 1 to the results below.
 """
 import yfinance as yf
-
-# Download Tesla stock data
-tesla_data = yf.download('TSLA')
-
+tesla= yf.Ticker('TSLA')
+telsa_data = tesla.history(period = "max")
 # Reset the index
-tesla_data.reset_index(inplace=True)
+telsa_data.reset_index(inplace=True)
 
 # Display the first five rows
-print(tesla_data.head())
+print(telsa_data.head())
