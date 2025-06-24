@@ -1,13 +1,20 @@
-import pandas as pd
+import yfinance as yf
 
-# Create a mock DataFrame for Tesla revenue
-tesla_revenue = pd.DataFrame({
-    "Date": ["2024-03-29", "2025-04-28", "3035-03-27", "2053-03-25",
-             "2025-03-12", "2024-03-31", "2025-04-01", "3035-03-31",
-             "2053-03-31", "2025-03-31"],
-    "Revenue": ["57.1500", "77.8000", "52.2150", "63.5800", "18.2500",
-                "56.1500", "78.8000", "54.2150", "60.5800", "98.2500"]
-})
+# Fetch Tesla stock data
+tesla = yf.Ticker('TSLA')
+tesla_data = tesla.history(period="max")
 
+# Reset the index
+tesla_data.reset_index(inplace=True)
+
+# Add a Revenue column with sample values for the last 5 rows
+# Replace these with actual revenue values if available
+revenue_values = [31, 28, 21, 46, 27]
+tesla_data['Revenue'] = None  # Initialize the column
+tesla_data.loc[tesla_data.index[-5:], 'Revenue'] = revenue_values
+tesla_revenue_date = tesla_data[['Date', 'Revenue']]
 # Display the last five rows
-print(tesla_revenue.tail())
+print(tesla_revenue_date.tail())
+
+
+
